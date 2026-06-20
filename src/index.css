@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Noto Sans SC", system-ui, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #352818;
+  background-color: #FAF6F0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #FAF6F0;
+  background-image: url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+.font-serif-title {
+  font-family: "Noto Serif SC", Georgia, serif;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F0E8D8;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C8B088;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B6F47;
+}
+
+@layer components {
+  .craft-card {
+    @apply bg-earth-50/80 backdrop-blur-sm rounded-2xl border border-earth-200/60 shadow-sm transition-all duration-300;
+  }
+
+  .craft-card:hover {
+    @apply shadow-md border-earth-300/80;
+  }
+
+  .craft-btn-primary {
+    @apply bg-indigo-500 text-white rounded-xl px-6 py-3 font-medium shadow-md hover:bg-indigo-400 active:scale-95 transition-all duration-200;
+  }
+
+  .craft-btn-secondary {
+    @apply bg-earth-100 text-earth-700 rounded-xl px-5 py-2.5 font-medium border border-earth-300/50 hover:bg-earth-200 active:scale-95 transition-all duration-200;
+  }
+
+  .craft-section-title {
+    @apply font-serif-title text-xl text-earth-700 tracking-wide;
+  }
+
+  .craft-input {
+    @apply w-full rounded-xl border border-earth-300/50 bg-white/60 px-4 py-2.5 text-earth-800 placeholder-earth-400 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200/40 focus:outline-none transition-all;
+  }
+}
