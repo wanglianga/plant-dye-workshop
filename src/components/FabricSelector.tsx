@@ -17,6 +17,12 @@ const textureConfig: Record<Fabric['texture'], { label: string; dot: string }> =
   silk: { label: '丝滑', dot: 'bg-indigo-300' },
 }
 
+const baseColorConfig: Record<Fabric['baseColor'], { label: string; dot: string }> = {
+  light: { label: '浅色', dot: 'bg-amber-100' },
+  medium: { label: '中色', dot: 'bg-amber-300' },
+  dark: { label: '深色', dot: 'bg-amber-700' },
+}
+
 export default function FabricSelector() {
   const fabrics = useWorkshopStore((s) => s.fabrics)
   const selectedFabricId = useWorkshopStore((s) => s.selectedFabricId)
@@ -31,6 +37,7 @@ export default function FabricSelector() {
           const isSelected = selectedFabricId === fabric.id
           const Icon = iconMap[fabric.icon] ?? Square
           const texture = textureConfig[fabric.texture]
+          const baseColor = baseColorConfig[fabric.baseColor]
 
           return (
             <button
@@ -61,15 +68,26 @@ export default function FabricSelector() {
 
               <span className="text-xs text-earth-400">{fabric.size}</span>
 
-              <span className="flex items-center gap-1.5 text-xs text-earth-500">
-                <span
-                  className={cn(
-                    'inline-block w-2 h-2 rounded-full',
-                    texture.dot,
-                  )}
-                />
-                {texture.label}
-              </span>
+              <div className="flex items-center gap-3 text-xs text-earth-500">
+                <span className="flex items-center gap-1">
+                  <span
+                    className={cn(
+                      'inline-block w-2 h-2 rounded-full',
+                      texture.dot,
+                    )}
+                  />
+                  {texture.label}
+                </span>
+                <span className="flex items-center gap-1">
+                  <span
+                    className={cn(
+                      'inline-block w-2 h-2 rounded-full',
+                      baseColor.dot,
+                    )}
+                  />
+                  {baseColor.label}
+                </span>
+              </div>
             </button>
           )
         })}

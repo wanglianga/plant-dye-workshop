@@ -73,10 +73,12 @@ function generateAlerts(
         dyeName: dye.name,
         alertType: 'needs_pre_boil',
         title: `${dye.name}需提前熬煮`,
-        description: `该染料需提前 ${dye.boilTimeMinutes} 分钟熬煮才能使用，请按预约时间到场，老师会提前准备`,
+        description: `该染料需提前 ${dye.boilTimeMinutes} 分钟熬煮才能使用，请按预约时间到场${dye.needsTeacherPrep ? '，老师会提前准备' : ''}`,
         severity: 'info',
         alternativeColors: undefined,
-        difficultyChange: '操作难度不变，但需老师提前预处理染料',
+        difficultyChange: dye.needsTeacherPrep
+          ? '操作难度不变，但需老师提前预处理染料'
+          : '操作难度不变，染料需提前熬煮后即可使用',
         teacherPrepRequired: dye.needsTeacherPrep,
         pickupDateImpact: null,
       })

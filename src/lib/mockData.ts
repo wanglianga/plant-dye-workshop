@@ -2,9 +2,10 @@ import type { Fabric, DyeMaterial, TieMethod, PatternTemplate, TimeSlot, Booking
 
 export const fabrics: Fabric[] = [
   { id: 'f1', name: '方巾', size: '45×45cm', texture: 'smooth', icon: 'Square', description: '棉质方巾，适合入门体验，纹路清晰', baseColor: 'light' },
-  { id: 'f2', name: '帆布袋', size: '35×40cm', texture: 'canvas', icon: 'ShoppingBag', description: '厚实帆布，日常可用，显色饱满', baseColor: 'medium' },
+  { id: 'f2', name: '帆布袋', size: '35×40cm', texture: 'canvas', icon: 'ShoppingBag', description: '厚实帆布，日常可用，显色饱满', baseColor: 'dark' },
   { id: 'f3', name: 'T恤', size: 'M / L', texture: 'knit', icon: 'Shirt', description: '精梳棉T恤，穿着舒适，纹样自然', baseColor: 'light' },
   { id: 'f4', name: '围巾', size: '180×50cm', texture: 'silk', icon: 'Scarf', description: '丝棉混纺，轻盈飘逸，渐变柔美', baseColor: 'light' },
+  { id: 'f5', name: '深色T恤', size: 'M / L', texture: 'knit', icon: 'Shirt', description: '深色精梳棉T恤，深底显色有独特效果', baseColor: 'dark' },
 ]
 
 export const dyeMaterials: DyeMaterial[] = [
