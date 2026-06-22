@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
-import { Info, RefreshCw } from 'lucide-react'
+import { Info, RefreshCw, Sparkles, Layers, Palette } from 'lucide-react'
 import { useWorkshopStore } from '@/hooks/useWorkshopStore'
 import { renderPattern } from '@/lib/patternRenderer'
 import { cn } from '@/lib/utils'
@@ -37,7 +37,7 @@ export default function PatternPreviewCanvas() {
     }
 
     const dyeColors = selectedDyes.map((d) => d.color)
-    const patternType = selectedTieMethod?.patternType ?? 'radial'
+    const patternType = selectedTieMethod?.patternType ?? 'spiral'
     const fabricTexture = selectedFabric?.texture ?? 'smooth'
 
     renderPattern(ctx, canvas.width, canvas.height, dyeColors, patternType, fabricTexture, patternSeed)
@@ -88,13 +88,36 @@ export default function PatternPreviewCanvas() {
                 className={cn(
                   'absolute top-10 right-2 md:top-12 md:right-3',
                   'bg-earth-50/95 backdrop-blur-sm rounded-xl px-3 py-2 md:px-4 md:py-2.5',
-                  'border border-earth-200/60 shadow-lg max-w-[200px] md:max-w-[240px]',
+                  'border border-earth-200/60 shadow-lg max-w-[220px] md:max-w-[280px]',
                   'animate-fade-in z-10',
                 )}
               >
-                <p className="text-xs md:text-sm text-earth-600 leading-relaxed">
-                  植物染色有随机之美，每次作品独一无二
-                </p>
+                <div className="space-y-1.5">
+                  <p className="text-xs md:text-sm text-earth-700 leading-relaxed font-medium flex items-center gap-1">
+                    <Sparkles className="w-3 h-3 text-amber-500" />
+                    植物染色的独特魅力
+                  </p>
+                  <p className="text-xs text-earth-600 leading-relaxed">
+                    实际成品会因手劲、浸泡时间、布料材质产生独特差异，每一件作品都是独一无二的。
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {selectedTieMethod && hasSelection && (
+              <div className="absolute bottom-2 left-2 md:bottom-3 md:left-3 space-y-1.5">
+                <div className="bg-earth-50/85 backdrop-blur-sm rounded-lg px-2.5 py-1.5 border border-earth-200/60 flex items-center gap-1.5">
+                  <Palette className="w-3 h-3 text-indigo-500 flex-shrink-0" />
+                  <span className="text-[10px] md:text-xs text-earth-600 truncate max-w-[150px]">
+                    {selectedTieMethod.patternHint}
+                  </span>
+                </div>
+                <div className="bg-earth-50/85 backdrop-blur-sm rounded-lg px-2.5 py-1.5 border border-earth-200/60 flex items-center gap-1.5">
+                  <Layers className="w-3 h-3 text-amber-500 flex-shrink-0" />
+                  <span className="text-[10px] md:text-xs text-earth-600 truncate max-w-[150px]">
+                    {selectedTieMethod.colorBlockHint}
+                  </span>
+                </div>
               </div>
             )}
           </div>
@@ -107,11 +130,12 @@ export default function PatternPreviewCanvas() {
                 <span className="flex items-center gap-1.5">
                   <span className="inline-block w-2.5 h-2.5 rounded-full bg-earth-300" />
                   <span className="font-serif-title">{selectedFabric.name}</span>
+                  <span className="text-xs text-earth-400">({selectedFabric.size})</span>
                 </span>
               )}
 
               {selectedDyes.length > 0 && (
-                <span className="flex items-center gap-1.5">
+                <span className="flex items-center gap-1.5 flex-wrap">
                   {selectedDyes.map((dye) => (
                     <span key={dye.id} className="flex items-center gap-1">
                       <span
@@ -128,8 +152,44 @@ export default function PatternPreviewCanvas() {
                 <span className="flex items-center gap-1.5">
                   <span className="inline-block w-2.5 h-2.5 rounded-full bg-indigo-400" />
                   <span className="font-serif-title">{selectedTieMethod.name}</span>
+                  <span className="text-xs text-earth-400">
+                    ({selectedTieMethod.estimatedMinutes}分钟)
+                  </span>
                 </span>
               )}
+            </div>
+          )}
+
+          {hasSelection && (
+            <div className="bg-turmeric-50/60 border border-turmeric-200/60 rounded-xl p-3">
+              <p className="text-xs text-earth-700 leading-relaxed">
+                <span className="font-serif-title text-turmeric-700 flex items-center gap-1">
+                  <Sparkles className="w-3 h-3" />
+                  预期效果说明
+                </span>
+              </p>
+              <div className="mt-1.5 grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] text-earth-600">
+                <div className="flex items-start gap-1.5">
+                  <span className="text-turmeric-500 font-medium mt-0.5">手劲</span>
+                  <span className="leading-relaxed">
+                    捆扎松紧直接影响纹路清晰度，扎得越紧留白越明显
+                  </span>
+                </div>
+                <div className="flex items-start gap-1.5">
+                  <span className="text-turmeric-500 font-medium mt-0.5">浸泡</span>
+                  <span className="leading-relaxed">
+                    浸染时间越长颜色越深，复染可增加层次感
+                  </span>
+                </div>
+                <div className="flex items-start gap-1.5">
+                  <span className="text-turmeric-500 font-medium mt-0.5">材质</span>
+                  <span className="leading-relaxed">
+                    {selectedFabric
+                      ? `${selectedFabric.name}的${selectedFabric.texture === 'silk' ? '丝滑质感' : selectedFabric.texture === 'canvas' ? '粗织纹理' : selectedFabric.texture === 'knit' ? '针织弹性' : '细腻棉布'}会让纹路呈现独特效果`
+                      : '不同布料纹理会让纹路呈现独特效果'}
+                  </span>
+                </div>
+              </div>
             </div>
           )}
 

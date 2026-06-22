@@ -5,6 +5,7 @@ export interface Fabric {
   texture: 'smooth' | 'canvas' | 'knit' | 'silk'
   icon: string
   description: string
+  baseColor: 'light' | 'medium' | 'dark'
 }
 
 export interface DyeMaterial {
@@ -17,6 +18,20 @@ export interface DyeMaterial {
   maxStock: number
   description: string
   origin: string
+  boilTimeMinutes: number
+  dryTimeHours: number
+  suitableForDark: boolean
+  needsPreBoil: boolean
+  alternativeDyeIds: string[]
+  difficultyLevel: 1 | 2 | 3
+  needsTeacherPrep: boolean
+}
+
+export interface FailureRisk {
+  level: 'low' | 'medium' | 'high'
+  title: string
+  description: string
+  tips: string[]
 }
 
 export interface TieMethod {
@@ -25,6 +40,12 @@ export interface TieMethod {
   description: string
   patternType: string
   icon: string
+  difficultyLevel: 1 | 2 | 3
+  estimatedMinutes: number
+  failureRisk: FailureRisk
+  colorBlockHint: string
+  patternHint: string
+  textureTip: string
 }
 
 export interface PatternTemplate {
@@ -82,4 +103,17 @@ export interface WorkshopTable {
   name: string
   capacity: number
   hasChildSeat: boolean
+}
+
+export interface DyeAlert {
+  dyeId: string
+  dyeName: string
+  alertType: 'low_stock' | 'needs_pre_boil' | 'unsuitable_dark' | 'long_dry_time'
+  title: string
+  description: string
+  severity: 'info' | 'warning' | 'danger'
+  alternativeColors?: { id: string; name: string; color: string }[]
+  difficultyChange?: string
+  teacherPrepRequired?: boolean
+  pickupDateImpact?: string
 }

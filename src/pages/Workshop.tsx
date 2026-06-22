@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Palette, Leaf, Check, Lock, ChevronRight } from 'lucide-react'
 import FabricSelector from '@/components/FabricSelector'
 import DyeMaterialPicker from '@/components/DyeMaterialPicker'
+import DyeAlertPanel from '@/components/DyeAlertPanel'
 import TieMethodSelector from '@/components/TieMethodSelector'
 import PatternTemplateGrid from '@/components/PatternTemplateGrid'
 import PatternPreviewCanvas from '@/components/PatternPreviewCanvas'
@@ -225,7 +226,12 @@ export default function Workshop() {
               )}
             </div>
             {!stepLocked[1] ? (
-              <DyeMaterialPicker />
+              <div className="space-y-4">
+                <DyeMaterialPicker />
+                {(activeStep === 1 || stepCompletion[1]) && (
+                  <DyeAlertPanel />
+                )}
+              </div>
             ) : (
               <div className="craft-card p-8 text-center">
                 <div className="w-12 h-12 rounded-full bg-earth-100 flex items-center justify-center mx-auto mb-3">
